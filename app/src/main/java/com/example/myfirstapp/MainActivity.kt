@@ -37,9 +37,19 @@ class MainActivity : AppCompatActivity() {
             age += 1
             yearOfBirth = calculateYearOfBirth(currentYear, age)
             textView.text = "Привет, $newName! Тебе $age лет. Год рождения: $yearOfBirth"
+
+            val statsFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as? StatsFragment
+            statsFragment?.updateStats(age, yearOfBirth)
+
             Log.d("MyApp", "Возраст: $age. Год рождения: $yearOfBirth")
             editText.text.clear()
         }
+
+        // Добавляем StatsFragment в контейнер
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragmentContainer, StatsFragment())
+            .commit()
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
